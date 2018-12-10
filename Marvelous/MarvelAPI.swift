@@ -8,24 +8,24 @@
 
 import Foundation
 
+enum MarvelAPIError : Error {
+    case noData
+}
+
+private struct ResponseBody<T : Codable> : Codable {
+    let code   : Int
+    let status : String
+    let data   : ResponseData<T>
+}
+
+struct ResponseData<T : Codable> : Codable {
+    let offset  : Int
+    let total   : Int
+    let count   : Int
+    let results : [T]
+}
+
 class MarvelAPI {
-    
-    enum MarvelAPIError : Error {
-        case noData
-    }
-    
-    private struct ResponseBody<T : Codable> : Codable {
-        let code   : Int
-        let status : String
-        let data   : ResponseData<T>
-    }
-    
-    struct ResponseData<T : Codable> : Codable {
-        let offset  : Int
-        let total   : Int
-        let count   : Int
-        let results : [T]
-    }
     
     private let session = URLSession(configuration: .default)
     
@@ -49,6 +49,7 @@ class MarvelAPI {
             
             guard let data = data else {
                 errorHandler(MarvelAPIError.noData)
+                
                 return
             }
             

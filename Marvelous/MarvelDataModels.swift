@@ -28,6 +28,6 @@ struct ImageReference : Codable {
 extension ImageReference {
     
     var url : URL {
-        return URL(string: path + (fileExtension ?? ""))!
+        return URL(string: path + "." + (fileExtension ?? ""))!
     }
 }
