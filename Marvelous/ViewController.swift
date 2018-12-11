@@ -9,12 +9,13 @@
 import UIKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+    
     @IBOutlet weak var mainTableView: UITableView!
     
     var responseTableViewData: ResponseData<Character>?
     var tableViewImageCash:[UIImage?] = [UIImage?]()
     let activityView = UIActivityIndicatorView(style: .gray)
+    var offSetLimit:Int  = 0
     
     
     override func viewDidLoad() {
@@ -38,14 +39,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         {
             cell.characterTitle.text = self.responseTableViewData?.results[indexPath.row].name
             cell.characterImageView.image = UIImage(named: "cellImage")
+            cell.imageUrl1 = self.responseTableViewData?.results[indexPath.row].thumbnail?.url
+        
             guard let cellData = self.responseTableViewData?.results[indexPath.row].imageData else{
-                let url = self.responseTableViewData?.results[indexPath.row].thumbnail?.url
-                cell.urlToImageData(imageUrl: url!) { (image) in
-                    self.responseTableViewData?.results[indexPath.row].imageData = image as Data
-                cell.characterImageView.image = UIImage(data: image as Data)
-                }
-                return cell
+                return loadCellImage(cell: cell, indexPath: indexPath)
             }
+            
             cell.characterImageView.image = UIImage(data: cellData as Data)
             return cell
         }
@@ -54,7 +53,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
     func getCharacterData(){
-        MarvelAPI().loadCharacters(offset: 10, limit: 50, success: { (response) in
+        MarvelAPI().loadCharacters(offset: offSetLimit, limit: offSetLimit + 50, success: { (response) in
             self.responseTableViewData = response
             DispatchQueue.main.async {
                 self.mainTableView.reloadData()
@@ -80,9 +79,24 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row == responseTableViewData?.results.count{
-           print("end")
+        
+        
+        if let count = responseTableViewData?.results.count, indexPath.row == count - 1{
+            
         }
+    }
+    
+    func loadCellImage(cell:MyTableViewCell, indexPath:IndexPath)->UITableViewCell{
+        let url = self.responseTableViewData?.results[indexPath.row].thumbnail?.url
+        if let url = url{
+            cell.urlToImageData(imageUrl: url) { (image,flag) in
+                self.responseTableViewData?.results[indexPath.row].imageData = image as Data
+                if flag {
+                    cell.characterImageView.image = UIImage(data: image as Data)
+                }
+            }
+        }
+        return cell
     }
 }
 

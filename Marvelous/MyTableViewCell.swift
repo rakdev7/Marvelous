@@ -12,6 +12,8 @@ import UIKit
 class MyTableViewCell: UITableViewCell {
     
     
+    var imageUrl1:URL?
+    
     let characterImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -59,8 +61,9 @@ class MyTableViewCell: UITableViewCell {
     
     }
     
-    func urlToImageData(imageUrl:URL, onCompltetion:@escaping (NSData)->()){
+    func urlToImageData(imageUrl:URL, onCompltetion:@escaping (NSData,Bool)->()){
         var image = NSData()
+        var flag = true
         DispatchQueue.global().async {
             if let data = NSData(contentsOf: imageUrl){
                 image = data
@@ -68,7 +71,8 @@ class MyTableViewCell: UITableViewCell {
                 return
             }
             DispatchQueue.main.async {
-                onCompltetion(image)
+                flag = self.imageUrl1 == imageUrl ? true : false
+                onCompltetion(image, flag)
             }
         }
         
