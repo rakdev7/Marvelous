@@ -37,6 +37,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if let cell = mainTableView.dequeueReusableCell(withIdentifier: "marvelCell", for: indexPath) as? MyTableViewCell
         {
             cell.characterTitle.text = self.responseTableViewData?.results[indexPath.row].name
+            cell.characterImageView.image = UIImage(named: "cellImage")
             guard let cellData = self.responseTableViewData?.results[indexPath.row].imageData else{
                 let url = self.responseTableViewData?.results[indexPath.row].thumbnail?.url
                 cell.urlToImageData(imageUrl: url!) { (image) in
@@ -76,6 +77,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         alertController.addAction(okAction)
         alertController.addAction(retryAction)
         self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == responseTableViewData?.results.count{
+           print("end")
+        }
     }
 }
 
