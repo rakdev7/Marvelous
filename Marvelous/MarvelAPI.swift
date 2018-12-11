@@ -29,30 +29,26 @@ class MarvelAPI {
     
     private let session = URLSession(configuration: .default)
     
-    func loadCharacters(offset : Int, limit :Int, success: @escaping (ResponseData<Character>)->Void, error errorHandler: @escaping (Error)->Void) {
+    func loadCharacters(offset: Int, limit: Int, success: @escaping (ResponseData<Character>)->Void, error errorHandler: @escaping (Error)->Void) {
         
         let publicKey = "236b73580fbeb44ea22457fe1e0cb5cf"
         let privateKey = "aa0296464f7553ef1349eb4ac1e6241f9ae52fe9"
         
         let ts = UUID().uuidString
-        
         let hash = (ts + privateKey + publicKey).md5Hash
-        
         let url = URL(string: "https://gateway.marvel.com/v1/public/characters?ts=\(ts)&apikey=\(publicKey)&hash=\(hash)&offset=\(offset)&limit=\(limit)")!
-        
+
         let task = session.dataTask(with: url) { (data, response, error) in
             
             if let error = error {
                 errorHandler(error)
                 return
             }
-            
             guard let data = data else {
                 errorHandler(MarvelAPIError.noData)
                 
                 return
             }
-            
             do {
                 let decoder = JSONDecoder()
                 
@@ -64,7 +60,6 @@ class MarvelAPI {
                 errorHandler(error)
             }
         }
-        
         task.resume()
     } 
 }

@@ -10,10 +10,8 @@ import Foundation
 import UIKit
 
 class MyTableViewCell: UITableViewCell {
-    
-    
+ 
     var imageUrl1:URL?
-    
     let characterImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -28,10 +26,8 @@ class MyTableViewCell: UITableViewCell {
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        
-       super.init(style: style, reuseIdentifier: reuseIdentifier)
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
-    
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -58,7 +54,6 @@ class MyTableViewCell: UITableViewCell {
             ].forEach{
                 $0.isActive = true
         }
-    
     }
     
     func urlToImageData(imageUrl:URL, onCompltetion:@escaping (NSData,Bool)->()){
@@ -75,10 +70,5 @@ class MyTableViewCell: UITableViewCell {
                 onCompltetion(image, flag)
             }
         }
-        
     }
-    
-    
-    
-    
 }

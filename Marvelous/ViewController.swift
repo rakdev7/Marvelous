@@ -13,10 +13,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var mainTableView: UITableView!
     
     var responseTableViewData: ResponseData<Character>?
-    var tableViewImageCash:[UIImage?] = [UIImage?]()
     let activityView = UIActivityIndicatorView(style: .gray)
-    var offSetLimit:Int  = 0
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,10 +38,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             cell.characterImageView.image = UIImage(named: "cellImage")
             cell.imageUrl1 = self.responseTableViewData?.results[indexPath.row].thumbnail?.url
         
-            guard let cellData = self.responseTableViewData?.results[indexPath.row].imageData else{
-                return loadCellImage(cell: cell, indexPath: indexPath)
-            }
-            
+            guard let cellData = self.responseTableViewData?.results[indexPath.row].imageData
+                else {
+                    return loadCellImage(cell: cell, indexPath: indexPath)
+                }
             cell.characterImageView.image = UIImage(data: cellData as Data)
             return cell
         }
@@ -52,8 +49,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     
-    func getCharacterData(){
-        MarvelAPI().loadCharacters(offset: offSetLimit, limit: offSetLimit + 50, success: { (response) in
+    func getCharacterData() {
+        MarvelAPI().loadCharacters(offset: 0, limit: 50, success: { (response) in
             self.responseTableViewData = response
             DispatchQueue.main.async {
                 self.mainTableView.reloadData()
@@ -64,11 +61,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    func serviceErrorAlert(error:Error){
+    func serviceErrorAlert(error:Error) {
         let alertController = UIAlertController(title: "Error!", message: error.localizedDescription, preferredStyle: .alert)
         
         let okAction = UIAlertAction(title: "Ok", style: .default) { (action:UIAlertAction) in
-            print("You've pressed ok");
         }
         let retryAction = UIAlertAction(title: "Retry?", style: .default) { (action:UIAlertAction) in
             self.getCharacterData()
@@ -79,16 +75,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
-        
-        if let count = responseTableViewData?.results.count, indexPath.row == count - 1{
-            
-        }
+        if let count = responseTableViewData?.results.count, indexPath.row == count - 1 {}
     }
     
     func loadCellImage(cell:MyTableViewCell, indexPath:IndexPath)->UITableViewCell{
         let url = self.responseTableViewData?.results[indexPath.row].thumbnail?.url
-        if let url = url{
+        if let url = url {
             cell.urlToImageData(imageUrl: url) { (image,flag) in
                 self.responseTableViewData?.results[indexPath.row].imageData = image as Data
                 if flag {
