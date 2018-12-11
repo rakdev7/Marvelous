@@ -455,13 +455,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 39XXES98DU;
+				DEVELOPMENT_TEAM = W92CYKZS36;
 				INFOPLIST_FILE = Marvelous/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.lootcrate.Marvelous2724;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lootcrate.Marvelous2724345;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Marvelous/Marvelous-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -476,13 +476,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 39XXES98DU;
+				DEVELOPMENT_TEAM = W92CYKZS36;
 				INFOPLIST_FILE = Marvelous/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.lootcrate.Marvelous2724;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lootcrate.Marvelous2724345;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Marvelous/Marvelous-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;

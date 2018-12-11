@@ -22,7 +22,7 @@ struct ResponseData<T : Codable> : Codable {
     let offset  : Int
     let total   : Int
     let count   : Int
-    let results : [T]
+    var results : [T]
 }
 
 class MarvelAPI {
@@ -66,8 +66,5 @@ class MarvelAPI {
         }
         
         task.resume()
-    }
-    
-    
-    
+    } 
 }

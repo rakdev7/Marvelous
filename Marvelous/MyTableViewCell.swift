@@ -59,11 +59,11 @@ class MyTableViewCell: UITableViewCell {
     
     }
     
-    func urlToImageData(imageUrl:URL, onCompltetion:@escaping (UIImage)->()){
-        var image = UIImage()
+    func urlToImageData(imageUrl:URL, onCompltetion:@escaping (NSData)->()){
+        var image = NSData()
         DispatchQueue.global().async {
-            if let data = NSData(contentsOf: imageUrl), let marvelImage = UIImage(data: data as Data){
-                image = marvelImage
+            if let data = NSData(contentsOf: imageUrl){
+                image = data
             }else{
                 return
             }

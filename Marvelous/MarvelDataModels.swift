@@ -13,6 +13,7 @@ struct Character : Codable {
     let name        : String?
     let description : String?
     let thumbnail   : ImageReference?
+    var imageData   : Data?
 }
 
 struct ImageReference : Codable {
