@@ -14,6 +14,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     var responseTableViewData: ResponseData<Character>?
     var tableViewImageCash:[UIImage?] = [UIImage?]()
+    let activityView = UIActivityIndicatorView(style: .gray)
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +23,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         mainTableView.delegate = self
         mainTableView.dataSource = self
         mainTableView.register(MyTableViewCell.self, forCellReuseIdentifier: "marvelCell")
+        self.view.addSubview(activityView)
+        activityView.center = self.view.center
+        activityView.startAnimating()
         self.getCharacterData()
     }
     
@@ -52,6 +57,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.responseTableViewData = response
             DispatchQueue.main.async {
                 self.mainTableView.reloadData()
+                self.activityView.stopAnimating()
             }
         }){ (error) in
             self.serviceErrorAlert(error: error)
